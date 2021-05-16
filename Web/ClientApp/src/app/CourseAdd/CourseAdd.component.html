@@ -1,0 +1,72 @@
+<div>
+  <button onclick="document.getElementById('dvForm').hidden = !document.getElementById('dvForm').hidden;">Save New</button>
+  <br />
+  <br />
+  <div id="dvForm" class="panel" hidden="hidden">
+    <form #instituteForm="ngForm" (ngSubmit)="AddCourse(instituteForm)">
+      <div class="form-group">
+        <table>
+          <tr>
+            <td><label> Course Name </label></td>
+            <td>
+              <input type="text" ng-maxlength="20" hint="Course Name" name="Cname" id="Cname" class="form-control"
+                     [(ngModel)]="newCourse.Cname" required #Cname="ngModel" maxlength="20" />
+            </td>
+            <td>
+              <div *ngIf="Cname.invalid"
+                   class="badge alert-danger">
+
+                <div *ngIf="Cname.errors.required">
+                  Name is required.
+                </div>
+                <div *ngIf="Cname.errors.maxlength">
+                  Name must be at max 20 characters long.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><label> Fees </label></td>
+            <td>
+              <input type="number" hint="Fees" name="Fees" id="Fees" class="form-control" [(ngModel)]="newCourse.Fees" required #Fees="ngModel">
+            </td>
+            <td>
+              <div *ngIf="Fees.invalid"
+                   class="badge alert-danger">
+
+                <div *ngIf="Fees.errors.required">
+                  Fees is required.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><label> Duration </label></td>
+            <td>
+              <input type="number" hint="Duration" id="Duration" name="Duration" class="form-control" [(ngModel)]="newCourse.Duration" required #Duration="ngModel">
+            </td>
+            <td>
+              <div *ngIf="Duration.invalid"
+                   class="badge alert-danger">
+
+                <div *ngIf="Duration.errors.required">
+                  Duration is required.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><button id="btnSave" class="btn btn-primary" [disabled]="Cname.invalid || Fees.invalid || Duration.invalid">Save</button></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>

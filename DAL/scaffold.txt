@@ -1,0 +1,2 @@
+﻿dotnet ef dbcontext scaffold "Data Source=localhost;Initial Catalog=StudentManagementSystem;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -o Models
+Scaffold-DbContext "Data Source=localhost;Initial Catalog=StudentManagementSystem;Integrated Security=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models

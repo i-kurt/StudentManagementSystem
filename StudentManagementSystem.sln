@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31129.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{CEE44B5A-338E-41C1-BE1A-9D4594612684}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D234B9A8-D71E-4194-905A-698F7E8E2D4A} = {D234B9A8-D71E-4194-905A-698F7E8E2D4A}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{D234B9A8-D71E-4194-905A-698F7E8E2D4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEE44B5A-338E-41C1-BE1A-9D4594612684}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEE44B5A-338E-41C1-BE1A-9D4594612684}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEE44B5A-338E-41C1-BE1A-9D4594612684}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEE44B5A-338E-41C1-BE1A-9D4594612684}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D234B9A8-D71E-4194-905A-698F7E8E2D4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D234B9A8-D71E-4194-905A-698F7E8E2D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D234B9A8-D71E-4194-905A-698F7E8E2D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D234B9A8-D71E-4194-905A-698F7E8E2D4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9DD04E25-D514-4C54-AFB1-3BE75360470E}
+	EndGlobalSection
+EndGlobal

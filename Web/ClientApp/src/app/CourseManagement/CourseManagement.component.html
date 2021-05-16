@@ -1,0 +1,33 @@
+<h1 id="tableLabel">Course Management</h1>
+
+<p *ngIf="!courses"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="courses">
+  <thead>
+    <tr>
+      <th>Course ID</th>
+      <th>Name</th>
+      <th>Fees</th>
+      <th>Duration</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="courses.length>0">
+    <tr *ngFor="let course of courses">
+      <td>{{ course.Cid }}</td>
+      <td>{{ course.Cname }}</td>
+      <td>{{ course.Fees }}</td>
+      <td>{{ course.Duration }}</td>
+      <td>
+        <button (click)="DeleteCourse(course.Cid)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="courses.length==0">
+    <tr>
+      <td colspan="5">Kayıt bulunamadı!</td>
+    </tr>
+  </tbody>
+</table>
+<br />
+<app-CourseAdd (saved)="GetCourses()"></app-CourseAdd>

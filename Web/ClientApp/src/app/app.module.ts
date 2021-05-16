@@ -1,0 +1,37 @@
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
+
+import { CommonService } from './common.service';
+import { AppComponent } from './app.component';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
+import { HomeComponent } from './home/home.component';
+import { CourseManagementComponent } from './CourseManagement/CourseManagement.component';
+import { CourseAddComponent } from './CourseAdd/CourseAdd.component';
+import { StudentManagementComponent } from './StudentManagement/StudentManagement.component';
+
+@NgModule({
+  declarations: [
+    AppComponent,
+    NavMenuComponent,
+    HomeComponent,
+    CourseManagementComponent,
+    CourseAddComponent,
+    StudentManagementComponent
+  ],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    HttpClientModule,
+    FormsModule,
+    RouterModule.forRoot([
+      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'CourseManagement', component: CourseManagementComponent },
+      { path: 'StudentManagement', component: StudentManagementComponent }
+    ])
+  ],
+  providers: [CommonService],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
