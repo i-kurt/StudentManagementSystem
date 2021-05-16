@@ -1,0 +1,1 @@
+﻿Angular + Asp.Net Core ile yapılmış basit bir uygulama örneği.
