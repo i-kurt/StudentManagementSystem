@@ -11,6 +11,9 @@ import { HomeComponent } from './home/home.component';
 import { CourseManagementComponent } from './CourseManagement/CourseManagement.component';
 import { CourseAddComponent } from './CourseAdd/CourseAdd.component';
 import { StudentManagementComponent } from './StudentManagement/StudentManagement.component';
+import { StudentAddComponent } from './StudentAdd/StudentAdd.component';
+import { TeacherManagementComponent } from './TeacherManagement/TeacherManagement.component';
+import { TeacherAddComponent } from './TeacherAdd/TeacherAdd.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { StudentManagementComponent } from './StudentManagement/StudentManagemen
     HomeComponent,
     CourseManagementComponent,
     CourseAddComponent,
-    StudentManagementComponent
+    StudentManagementComponent,
+    StudentAddComponent,
+    TeacherManagementComponent,
+    TeacherAddComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -28,7 +34,8 @@ import { StudentManagementComponent } from './StudentManagement/StudentManagemen
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'CourseManagement', component: CourseManagementComponent },
-      { path: 'StudentManagement', component: StudentManagementComponent }
+      { path: 'StudentManagement', component: StudentManagementComponent },
+      { path: 'TeacherManagement', component: TeacherManagementComponent }
     ])
   ],
   providers: [CommonService],

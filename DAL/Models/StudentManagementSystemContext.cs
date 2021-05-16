@@ -70,17 +70,11 @@ namespace DAL.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("CName");
-
-                entity.Property(e => e.Fees)
-                    .IsRequired()
-                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<StudentCourse>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Cid).HasColumnName("CID");
 
                 entity.Property(e => e.Fees).HasColumnName("FEES");
 
@@ -88,17 +82,19 @@ namespace DAL.Models
 
                 entity.Property(e => e.Sid).HasColumnName("SID");
 
-                entity.HasOne(d => d.CidNavigation)
-                    .WithMany(p => p.StudentCourses)
-                    .HasForeignKey(d => d.Cid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_StudentCourses_CourseMst");
+                entity.Property(e => e.Tcid).HasColumnName("TCID");
 
                 entity.HasOne(d => d.SidNavigation)
                     .WithMany(p => p.StudentCourses)
                     .HasForeignKey(d => d.Sid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_StudentCourses_StudentMst");
+
+                entity.HasOne(d => d.Tc)
+                    .WithMany(p => p.StudentCourses)
+                    .HasForeignKey(d => d.Tcid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_StudentCourses_TeacherCourses");
             });
 
             modelBuilder.Entity<StudentMst>(entity =>
@@ -158,10 +154,6 @@ namespace DAL.Models
                 entity.ToTable("TeacherMst");
 
                 entity.Property(e => e.Tid).HasColumnName("TID");
-
-                entity.Property(e => e.Course)
-                    .IsRequired()
-                    .HasMaxLength(50);
 
                 entity.Property(e => e.Education)
                     .IsRequired()

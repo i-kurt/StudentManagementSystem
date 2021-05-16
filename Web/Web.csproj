@@ -27,6 +27,8 @@
   <ItemGroup>
     <None Remove="ClientApp\src\app\CourseMst.ts" />
     <None Remove="ClientApp\src\app\pocos\StudentMst.ts" />
+    <None Remove="ClientApp\src\app\pocos\TeacherCourse.ts" />
+    <None Remove="ClientApp\src\app\pocos\TeacherMst.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,10 +36,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\pocos\TeacherCourse.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\pocos\TeacherMst.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\pocos\StudentMst.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="ClientApp\src\app\pocos\CourseMst.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="pocos\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

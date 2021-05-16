@@ -9,11 +9,11 @@ namespace DAL.Models
     {
         public int Id { get; set; }
         public int Sid { get; set; }
-        public int Cid { get; set; }
+        public int Tcid { get; set; }
         public int Fees { get; set; }
         public int Rem { get; set; }
 
-        public virtual CourseMst CidNavigation { get; set; }
         public virtual StudentMst SidNavigation { get; set; }
+        public virtual TeacherCourse Tc { get; set; }
     }
 }
