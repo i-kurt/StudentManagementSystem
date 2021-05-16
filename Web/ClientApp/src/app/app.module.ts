@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { CourseManagementComponent } from './CourseManagement/CourseManagement.component';
 import { CourseAddComponent } from './CourseAdd/CourseAdd.component';
 import { StudentManagementComponent } from './StudentManagement/StudentManagement.component';
+import { StudentAddComponent } from './StudentAdd/StudentAdd.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { StudentManagementComponent } from './StudentManagement/StudentManagemen
     HomeComponent,
     CourseManagementComponent,
     CourseAddComponent,
-    StudentManagementComponent
+    StudentManagementComponent,
+    StudentAddComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
