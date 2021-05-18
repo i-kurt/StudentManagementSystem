@@ -24,6 +24,10 @@ export class CommonService {
       case 500:
         this.errMSG.next("Sunucu hatası! " + err.data);
         break;
+      default:
+        {
+          this.errMSG.next("Hata! Status:" + err.status + " Msg:" + err.message);
+        }
     }
   }
 }

@@ -1,0 +1,96 @@
+<div>
+  <button onclick="document.getElementById('dvForm').hidden = !document.getElementById('dvForm').hidden;">Save New</button>
+  <br />
+  <br />
+  <div id="dvForm" class="panel" hidden="hidden">
+    <form #instituteForm="ngForm" (ngSubmit)="AddStudent(instituteForm)">
+      <div class="form-group">
+        <table>
+          <tr>
+            <td><label> Student Name </label></td>
+            <td>
+              <input type="text" ng-maxlength="20" hint="Student Name" name="Name" id="Name" class="form-control"
+                     [(ngModel)]="newStudent.Name" required #Name="ngModel" maxlength="20" />
+            </td>
+            <td>
+              <div *ngIf="Name.invalid"
+                   class="badge alert-danger">
+                <div *ngIf="Name.errors.required">
+                  Name is required.
+                </div>
+                <div *ngIf="Name.errors.maxlength">
+                  Name must be at max 20 characters long.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><label> Student Surname </label></td>
+            <td>
+              <input type="text" ng-maxlength="20" hint="Student Surname" name="Surname" id="Surname" class="form-control"
+                     [(ngModel)]="newStudent.Surname" required #Surname="ngModel" maxlength="20" />
+            </td>
+            <td>
+              <div *ngIf="Surname.invalid"
+                   class="badge alert-danger">
+                <div *ngIf="Surname.errors.required">
+                  Surname is required.
+                </div>
+                <div *ngIf="Surname.errors.maxlength">
+                  Surname must be at max 20 characters long.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><label> ContactNo </label></td>
+            <td>
+              <input type="text" hint="ContactNo" name="ContactNo" id="ContactNo" class="form-control" [(ngModel)]="newStudent.ContactNo" required #ContactNo="ngModel">
+            </td>
+            <td>
+              <div *ngIf="ContactNo.invalid"
+                   class="badge alert-danger">
+                <div *ngIf="ContactNo.errors.required">
+                  ContactNo is required.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><label> Address </label></td>
+            <td>
+              <input type="text" hint="Address" name="Address" id="Address" class="form-control" [(ngModel)]="newStudent.Address" required #Address="ngModel">
+            </td>
+            <td>
+              <div *ngIf="Address.invalid"
+                   class="badge alert-danger">
+                <div *ngIf="Address.errors.required">
+                  Address is required.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><label> Email </label></td>
+            <td>
+              <input type="text" hint="Email" name="Email" id="Email" class="form-control" [(ngModel)]="newStudent.Email" required #Email="ngModel">
+            </td>
+            <td>
+              <div *ngIf="Email.invalid"
+                   class="badge alert-danger">
+                <div *ngIf="Email.errors.required">
+                  Email is required.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><button id="btnSave" class="btn btn-primary" [disabled]="Name.invalid || Surname.invalid || ContactNo.invalid || Address.invalid || Email.invalid">Save</button></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>

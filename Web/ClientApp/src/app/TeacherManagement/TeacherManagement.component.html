@@ -1,0 +1,95 @@
+<h1 id="tableLabel">Teacher Management</h1>
+
+<p *ngIf="!teachers"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="teachers">
+  <thead>
+    <tr>
+      <th>Teacher ID</th>
+      <th>Teacher Name</th>
+      <th>Education</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody *ngIf="teachers.length>0">
+    <tr *ngFor="let teacher of teachers">
+      <td>{{ teacher.Tid }}</td>
+      <td>{{ teacher.Tname }}</td>
+      <td>{{ teacher.Education }}</td>
+      <td>
+        <button (click)="DeleteTeacher(teacher.Tid)">Delete</button>&nbsp;
+        <button (click)="SelectTeacher(teacher)">Select</button>
+      </td>
+    </tr>
+  </tbody>
+  <tbody *ngIf="teachers.length==0">
+    <tr>
+      <td colspan="5">...</td>
+    </tr>
+  </tbody>
+</table>
+<br />
+<app-TeacherAdd (saved)="GetTeachers()"></app-TeacherAdd>
+<br />
+
+<div *ngIf="selectedTeacher">
+  <p>{{selectedTeacher.Tname}} Course Details</p><hr />
+  <br />
+  <p>All Courses</p>
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="TeacherCoursesExcept">
+    <thead>
+      <tr>
+        <th>Course ID</th>
+        <th>Name</th>
+        <th>Fees</th>
+        <th>Duration</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="TeacherCoursesExcept.length>0">
+      <tr *ngFor="let tce of TeacherCoursesExcept">
+        <td>{{ tce.Cid }}</td>
+        <td>{{ tce.Cname }}</td>
+        <td>{{ tce.Fees }}</td>
+        <td>{{ tce.Duration }}</td>
+        <td>
+          <button (click)="AddCourse(tce.Cid)">Add</button>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="TeacherCoursesExcept.length==0">
+      <tr>
+        <td colspan="5">...</td>
+      </tr>
+    </tbody>
+  </table>
+  <br />
+  <p>Teacher's Courses</p>
+  <table class='table table-striped' aria-labelledby="tableLabel" *ngIf="TeacherCourses">
+    <thead>
+      <tr>
+        <th>Course ID</th>
+        <th>Name</th>
+        <th>Fees</th>
+        <th>Duration</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngIf="TeacherCourses.length>0">
+      <tr *ngFor="let TeacherCourse of TeacherCourses">
+        <td>{{ TeacherCourse.Cid }}</td>
+        <td>{{ TeacherCourse.Cname }}</td>
+        <td>{{ TeacherCourse.Fees }}</td>
+        <td>{{ TeacherCourse.Duration }}</td>
+        <td>
+          <button (click)="DeleteCourse(TeacherCourse.Cid)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+    <tbody *ngIf="TeacherCourses.length==0">
+      <tr>
+        <td colspan="5">...</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -10,7 +10,6 @@ namespace DAL.Models
     {
         public CourseMst()
         {
-            StudentCourses = new HashSet<StudentCourse>();
             TeacherCourses = new HashSet<TeacherCourse>();
         }
 
@@ -18,9 +17,6 @@ namespace DAL.Models
         public string Cname { get; set; }
         public int Fees { get; set; }
         public int Duration { get; set; }
-
-        [JsonIgnore]
-        public virtual ICollection<StudentCourse> StudentCourses { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<TeacherCourse> TeacherCourses { get; set; }
