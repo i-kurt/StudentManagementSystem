@@ -22,10 +22,7 @@ import { TeacherAddComponent } from './TeacherAdd/TeacherAdd.component';
     HomeComponent,
     CourseManagementComponent,
     CourseAddComponent,
-    StudentManagementComponent,
-    StudentAddComponent,
-    TeacherManagementComponent,
-    TeacherAddComponent
+    StudentManagementComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
