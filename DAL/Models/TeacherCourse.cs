@@ -17,7 +17,10 @@ namespace DAL.Models
         public int Tid { get; set; }
         public int Cid { get; set; }
 
+        [JsonIgnore]
         public virtual CourseMst CidNavigation { get; set; }
+
+        [JsonIgnore]
         public virtual TeacherMst TidNavigation { get; set; }
 
         [JsonIgnore]

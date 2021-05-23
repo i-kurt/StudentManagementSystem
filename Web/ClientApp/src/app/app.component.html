@@ -1,9 +1,10 @@
 <body>
-  <app-nav-menu></app-nav-menu>
+  <app-nav-menu *ngIf="service.token!=''"></app-nav-menu>
   <div class="container">
     <router-outlet></router-outlet>
   </div>
   <div>
     <span class="badge alert-danger">{{errMSG}}</span>
   </div>
+  <app-login *ngIf="service.token==''"></app-login>
 </body>

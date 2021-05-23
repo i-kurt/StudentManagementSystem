@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonService } from '../common.service';
 import { TeacherMst } from 'src/app/pocos/TeacherMst';
@@ -13,7 +13,6 @@ export class TeacherManagementComponent implements OnInit {
   public teachers: TeacherMst[];
   private httpClient: HttpClient;
   private url: string = '';
-  private baseUrl: string = '';
   errMSG: string;
   selectedTeacher: TeacherMst;
   TeacherCoursesExcept: CourseMst[];
@@ -22,10 +21,9 @@ export class TeacherManagementComponent implements OnInit {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  constructor(private service: CommonService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private service: CommonService, http: HttpClient) {
     this.httpClient = http;
-    this.url = baseUrl + 'Teacher/GetTeachers';
-    this.baseUrl = baseUrl;
+    this.url = service.baseUrl + 'Teacher/GetTeachers';
     this.httpClient.get<any>(this.url).subscribe(result => {
       this.teachers = result.Value;
       if (result.Err != '') {
@@ -57,7 +55,7 @@ export class TeacherManagementComponent implements OnInit {
   DeleteTeacher(TID) {
     if (confirm('Are you sure?')) {
       this.service.changeErrorText('');
-      this.httpClient.post<any>(this.baseUrl + 'Teacher/DeleteTeacher', TID).subscribe(result => {
+      this.httpClient.post<any>(this.service.baseUrl + 'Teacher/DeleteTeacher', TID).subscribe(result => {
         this.GetTeachers();
         if (result.Err != '') {
           this.service.changeErrorText(result.Err);
@@ -70,7 +68,7 @@ export class TeacherManagementComponent implements OnInit {
 
   getTeacherCoursesExcept(TID) {
     this.service.changeErrorText('');
-    this.httpClient.get<any>(this.baseUrl + 'Teacher/GetCoursesExcept/?tid=' + TID, this.httpOptions).subscribe((result: any) => {
+    this.httpClient.get<any>(this.service.baseUrl + 'Teacher/GetCoursesExcept/?tid=' + TID, this.httpOptions).subscribe((result: any) => {
       this.TeacherCoursesExcept = result.Value;
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
@@ -82,7 +80,7 @@ export class TeacherManagementComponent implements OnInit {
 
   getTeacherCourses(TID) {
     this.service.changeErrorText('');
-    this.httpClient.get<any>(this.baseUrl + 'Teacher/GetTeacherCourses/?tid=' + TID).subscribe((result: any) => {
+    this.httpClient.get<any>(this.service.baseUrl + 'Teacher/GetTeacherCourses/?tid=' + TID).subscribe((result: any) => {
       this.TeacherCourses = result.Value;
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
@@ -103,7 +101,7 @@ export class TeacherManagementComponent implements OnInit {
     var tc = new TeacherCourse();
     tc.Cid = CID;
     tc.Tid = this.selectedTeacher.Tid;
-    this.httpClient.post<any>(this.baseUrl + 'Teacher/AddCourse', tc).subscribe(result => {
+    this.httpClient.post<any>(this.service.baseUrl + 'Teacher/AddCourse', tc).subscribe(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
@@ -120,7 +118,7 @@ export class TeacherManagementComponent implements OnInit {
     var tc = new TeacherCourse();
     tc.Cid = CID;
     tc.Tid = this.selectedTeacher.Tid;
-    this.httpClient.post<any>(this.baseUrl + 'Teacher/DeleteCourse', tc).subscribe(result => {
+    this.httpClient.post<any>(this.service.baseUrl + 'Teacher/DeleteCourse', tc).subscribe(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }

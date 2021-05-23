@@ -11,13 +11,11 @@ export class StudentManagementComponent implements OnInit {
   public students: StudentMst[];
   private httpClient: HttpClient;
   private url: string = '';
-  private baseUrl: string = '';
   errMSG: string;
 
   constructor(private service: CommonService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.httpClient = http;
-    this.url = baseUrl + 'Student/GetStudents';
-    this.baseUrl = baseUrl;
+    this.url = service.baseUrl + 'Student/GetStudents';
     this.httpClient.get<any>(this.url).subscribe(result => {
       this.students = result.Value;
       if (result.Err != '') {
@@ -49,7 +47,7 @@ export class StudentManagementComponent implements OnInit {
 
   DeleteStudent(SID) {
     this.service.changeErrorText('');
-    this.httpClient.post<any>(this.baseUrl + 'Student/DeleteStudent', SID).subscribe(result => {
+    this.httpClient.post<any>(this.service.baseUrl + 'Student/DeleteStudent', SID).subscribe(result => {
       this.GetStudents();
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);

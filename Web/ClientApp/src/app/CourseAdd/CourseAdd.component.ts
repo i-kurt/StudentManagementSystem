@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../common.service';
 import { NgForm } from '@angular/forms'
 import { CourseMst } from 'src/app/pocos/CourseMst';
@@ -18,10 +18,9 @@ export class CourseAddComponent implements OnInit {
   private baseUrl: string = '';
   @Output() saved = new EventEmitter();
 
-  constructor(private service: CommonService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private service: CommonService, http: HttpClient) {
     this.httpClient = http;
-    this.url = baseUrl + 'Courses/SaveCourse';
-    this.baseUrl = baseUrl;
+    this.url = service.baseUrl + 'Courses/SaveCourse';
   }
 
   ngOnInit() {

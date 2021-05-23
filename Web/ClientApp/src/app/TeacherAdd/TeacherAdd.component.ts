@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../common.service';
 import { NgForm } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
@@ -15,13 +15,11 @@ export class TeacherAddComponent implements OnInit {
   newTeacher = new TeacherMst();
   private httpClient: HttpClient;
   private url: string = '';
-  private baseUrl: string = '';
   @Output() saved = new EventEmitter();
 
-  constructor(private service: CommonService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private service: CommonService, http: HttpClient) {
     this.httpClient = http;
-    this.url = baseUrl + 'teacher/SaveTeacher';
-    this.baseUrl = baseUrl;
+    this.url = service.baseUrl + 'teacher/SaveTeacher';
   }
 
   ngOnInit() {
@@ -31,7 +29,7 @@ export class TeacherAddComponent implements OnInit {
 
   AddTeacher(teacherForm: NgForm) {
     this.service.changeErrorText('');
-    this.httpClient.post<any>(this.baseUrl + 'teacher/SaveTeacher', teacherForm.value).subscribe(result => {
+    this.httpClient.post<any>(this.service.baseUrl + 'teacher/SaveTeacher', teacherForm.value).subscribe(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
