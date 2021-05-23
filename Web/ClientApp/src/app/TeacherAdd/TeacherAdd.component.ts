@@ -29,7 +29,7 @@ export class TeacherAddComponent implements OnInit {
 
   AddTeacher(teacherForm: NgForm) {
     this.service.changeErrorText('');
-    this.httpClient.post<any>(this.service.baseUrl + 'teacher/SaveTeacher', teacherForm.value).subscribe(result => {
+    this.service.postByURL(this.service.baseUrl + 'teacher/SaveTeacher', this.httpClient, teacherForm.value).then(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
@@ -38,7 +38,7 @@ export class TeacherAddComponent implements OnInit {
         document.getElementById('dvForm').hidden = !document.getElementById('dvForm').hidden;
         teacherForm.reset();
       }
-    }, error => {
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }

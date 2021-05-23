@@ -44,11 +44,12 @@ namespace Web.Controllers
                     {
                         db.CourseMsts.Remove(c);
                         db.SaveChanges();
-                        return Ok();
+                        var ret = new ObjectResult(new { Value = 0, Err = "" });
+                        return ret;
                     }
                     else
                     {
-                        var ret = new ObjectResult(new { Value = 0, Err = "Course couldt found!" });
+                        var ret = new ObjectResult(new { Value = 0, Err = "Course couldnt found!" });
                         return ret;
                     }
                 }

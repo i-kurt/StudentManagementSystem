@@ -46,7 +46,8 @@ namespace Web.Controllers
                             db.StudentCourses.RemoveRange(scs.ToArray());
                         db.StudentMsts.Remove(c);
                         db.SaveChanges();
-                        return Ok();
+                        var ret = new ObjectResult(new { Value = 0, Err = "" });
+                        return ret;
                     }
                     else
                     {

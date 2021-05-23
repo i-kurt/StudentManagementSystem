@@ -30,7 +30,7 @@ export class CourseAddComponent implements OnInit {
 
   AddCourse(courseForm: NgForm) {
     this.service.changeErrorText('');
-    this.httpClient.post<any>(this.baseUrl + 'courses/SaveCourse', courseForm.value).subscribe(result => {
+    this.service.postByURL(this.baseUrl + 'courses/SaveCourse', this.httpClient, courseForm.value).then(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
@@ -39,7 +39,7 @@ export class CourseAddComponent implements OnInit {
         document.getElementById('dvForm').hidden = !document.getElementById('dvForm').hidden;
         courseForm.reset();
       }
-    }, error => {
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }
