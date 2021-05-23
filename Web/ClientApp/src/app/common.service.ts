@@ -38,14 +38,13 @@ export class CommonService {
     }
   }
 
-  CheckAuthorize(httpClient: HttpClient) {
+  async getByURL(strURL: string, httpClient: HttpClient): Promise<any> {
     let _header = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token
     });
 
     this.changeErrorText('');
-
     return await httpClient.get<any>(strURL, { headers: _header }).toPromise();
   }
 

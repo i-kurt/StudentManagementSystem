@@ -14,10 +14,14 @@ export class LoginComponent implements OnInit {
   }
 
   Login(txtKullaniciAdi: HTMLInputElement, txtSifre: HTMLInputElement) {
-    this.httpClient.post<any>(this.service.baseUrl + 'Token/GetToken', { userName: txtKullaniciAdi.value, password: txtSifre.value }).subscribe((data: { Token: string }) => {
-      this.service.token = data.Token;
-    }, error => {
-      this.service.raiseError(error);
-    });
+    this.service.postByURL(this.service.baseUrl + 'Token/GetToken', this.httpClient, { userName: txtKullaniciAdi.value, password: txtSifre.value })
+      .then(result => {
+        if (result.Err != '') {
+          this.service.changeErrorText(result.Err);
+        } else
+          this.service.token = result.Value;
+      }).catch(err => {
+        this.service.raiseError(err);
+      });
   }
 }
