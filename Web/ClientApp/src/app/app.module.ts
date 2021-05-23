@@ -14,6 +14,7 @@ import { StudentManagementComponent } from './StudentManagement/StudentManagemen
 import { StudentAddComponent } from './StudentAdd/StudentAdd.component';
 import { TeacherManagementComponent } from './TeacherManagement/TeacherManagement.component';
 import { TeacherAddComponent } from './TeacherAdd/TeacherAdd.component';
+import { LoginComponent } from './Login/Login.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,11 @@ import { TeacherAddComponent } from './TeacherAdd/TeacherAdd.component';
     HomeComponent,
     CourseManagementComponent,
     CourseAddComponent,
-    StudentManagementComponent
+    StudentManagementComponent,
+    TeacherManagementComponent,
+    StudentAddComponent,
+    TeacherAddComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,7 +37,8 @@ import { TeacherAddComponent } from './TeacherAdd/TeacherAdd.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'CourseManagement', component: CourseManagementComponent },
       { path: 'StudentManagement', component: StudentManagementComponent },
-      { path: 'TeacherManagement', component: TeacherManagementComponent }
+      { path: 'TeacherManagement', component: TeacherManagementComponent },
+      { path: 'Login', component: LoginComponent }
     ])
   ],
   providers: [CommonService],

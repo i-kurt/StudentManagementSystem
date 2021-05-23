@@ -1,4 +1,5 @@
 ﻿using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Web.Controllers
 {
+    [Authorize()]
     [ApiController]
     [Route("[controller]/{action}")]
     public class StudentController : ControllerBase
@@ -46,7 +48,8 @@ namespace Web.Controllers
                             db.StudentCourses.RemoveRange(scs.ToArray());
                         db.StudentMsts.Remove(c);
                         db.SaveChanges();
-                        return Ok();
+                        var ret = new ObjectResult(new { Value = 0, Err = "" });
+                        return ret;
                     }
                     else
                     {

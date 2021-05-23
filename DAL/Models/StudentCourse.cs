@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 #nullable disable
 
@@ -13,7 +14,10 @@ namespace DAL.Models
         public int Fees { get; set; }
         public int Rem { get; set; }
 
+        [JsonIgnore]
         public virtual StudentMst SidNavigation { get; set; }
+
+        [JsonIgnore]
         public virtual TeacherCourse Tc { get; set; }
     }
 }

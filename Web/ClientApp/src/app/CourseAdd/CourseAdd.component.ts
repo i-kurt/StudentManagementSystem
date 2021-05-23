@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../common.service';
 import { NgForm } from '@angular/forms'
 import { CourseMst } from 'src/app/pocos/CourseMst';
@@ -18,10 +18,9 @@ export class CourseAddComponent implements OnInit {
   private baseUrl: string = '';
   @Output() saved = new EventEmitter();
 
-  constructor(private service: CommonService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private service: CommonService, http: HttpClient) {
     this.httpClient = http;
-    this.url = baseUrl + 'Courses/SaveCourse';
-    this.baseUrl = baseUrl;
+    this.url = service.baseUrl + 'Courses/SaveCourse';
   }
 
   ngOnInit() {
@@ -31,7 +30,7 @@ export class CourseAddComponent implements OnInit {
 
   AddCourse(courseForm: NgForm) {
     this.service.changeErrorText('');
-    this.httpClient.post<any>(this.baseUrl + 'courses/SaveCourse', courseForm.value).subscribe(result => {
+    this.service.postByURL(this.baseUrl + 'courses/SaveCourse', this.httpClient, courseForm.value).then(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
@@ -40,7 +39,7 @@ export class CourseAddComponent implements OnInit {
         document.getElementById('dvForm').hidden = !document.getElementById('dvForm').hidden;
         courseForm.reset();
       }
-    }, error => {
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }

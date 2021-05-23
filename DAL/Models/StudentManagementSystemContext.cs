@@ -17,7 +17,9 @@ namespace DAL.Models
         {
         }
 
-        public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<AuthRole> AuthRoles { get; set; }
+        public virtual DbSet<AuthUser> AuthUsers { get; set; }
+        public virtual DbSet<AuthUsersRole> AuthUsersRoles { get; set; }
         public virtual DbSet<CourseMst> CourseMsts { get; set; }
         public virtual DbSet<StudentCourse> StudentCourses { get; set; }
         public virtual DbSet<StudentMst> StudentMsts { get; set; }
@@ -37,25 +39,35 @@ namespace DAL.Models
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Turkish_CI_AS");
 
-            modelBuilder.Entity<Admin>(entity =>
+            modelBuilder.Entity<AuthRole>(entity =>
             {
-                entity.HasKey(e => e.Aid);
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.ToTable("ADMIN");
-
-                entity.Property(e => e.Aid).HasColumnName("AID");
-
-                entity.Property(e => e.LoginName)
+                entity.Property(e => e.RolName)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50);
+            });
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(20);
+            modelBuilder.Entity<AuthUser>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(10);
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<AuthUsersRole>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.UserRolId).HasColumnName("UserRolID");
             });
 
             modelBuilder.Entity<CourseMst>(entity =>
