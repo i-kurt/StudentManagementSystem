@@ -39,23 +39,6 @@ export class CommonService {
   }
 
   CheckAuthorize(httpClient: HttpClient) {
-    //let _header = new HttpHeaders({
-    //  'Content-Type': 'application/json',
-    //  'Authorization': 'Bearer ' + this.token
-    //});
-    //httpClient.get<any>(this.baseUrl + 'Courses/GetCourses', { headers: _header }).subscribe(result => {
-    //  this.token = result;
-    //}, error => {
-    //  if (error.status == 401) {
-    //    this.router.navigateByUrl(this.baseUrl + "/Login");
-    //  }
-    //  else {
-    //    this.raiseError(error);
-    //  }
-    //});
-  }
-
-  async getByURL(strURL: string, httpClient: HttpClient): Promise<any> {
     let _header = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ' + this.token
