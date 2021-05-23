@@ -5,9 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Controllers
 {
+    [Authorize()]
     [ApiController]
     [Route("[controller]/{action}/{id?}")]
     public class TeacherController : ControllerBase

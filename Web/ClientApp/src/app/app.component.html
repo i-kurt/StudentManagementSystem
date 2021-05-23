@@ -1,6 +1,6 @@
 <body>
   <app-nav-menu *ngIf="service.token!=''"></app-nav-menu>
-  <div class="container">
+  <div class="container" *ngIf="service.token!=''">
     <router-outlet></router-outlet>
   </div>
   <div>

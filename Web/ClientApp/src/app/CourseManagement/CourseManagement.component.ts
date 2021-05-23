@@ -25,28 +25,25 @@ export class CourseManagementComponent implements OnInit {
   }
 
   GetCourses() {
-    this.service.getByURL(this.url, this.httpClient).subscribe(result => {
+    this.service.getByURL(this.url, this.httpClient).then(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
-      }
-      else {
+      } else
         this.courses = result.Value;
-      }
-    }, error => {
-      this.service.raiseError(error);
+    }).catch(err => {
+      this.service.raiseError(err);
     });
   }
 
   DeleteCourse(CID) {
     this.service.changeErrorText('');
-    this.httpClient.post<any>(this.service.baseUrl + 'courses/DeleteCourse', CID).subscribe(result => {
+    this.service.postByURL(this.service.baseUrl + 'courses/DeleteCourse', this.httpClient, CID).then(result => {
       this.GetCourses();
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
-    }, error => {
-      console.error(error);
-      this.service.raiseError(error);
+    }).catch(err => {
+      this.service.raiseError(err);
     });
   }
 }

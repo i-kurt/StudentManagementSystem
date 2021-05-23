@@ -20,8 +20,4 @@ export class LoginComponent implements OnInit {
       this.service.raiseError(error);
     });
   }
-
-  CheckAuthorizeLogin() {
-    this.service.CheckAuthorize(this.httpClient);
-  }
 }

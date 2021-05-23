@@ -16,13 +16,12 @@ export class StudentManagementComponent implements OnInit {
   constructor(private service: CommonService, http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.httpClient = http;
     this.url = service.baseUrl + 'Student/GetStudents';
-    this.httpClient.get<any>(this.url).subscribe(result => {
+    this.service.getByURL(this.url, this.httpClient).then(result => {
       this.students = result.Value;
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
-    }, error => {
-      console.error(error);
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }
@@ -34,26 +33,24 @@ export class StudentManagementComponent implements OnInit {
 
   GetStudents() {
     this.service.changeErrorText('');
-    this.httpClient.get<any>(this.url).subscribe(result => {
+    this.service.getByURL(this.url, this.httpClient).then(result => {
       this.students = result.Value;
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
-    }, error => {
-      console.error(error);
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }
 
   DeleteStudent(SID) {
     this.service.changeErrorText('');
-    this.httpClient.post<any>(this.service.baseUrl + 'Student/DeleteStudent', SID).subscribe(result => {
+    this.service.postByURL(this.service.baseUrl + 'Student/DeleteStudent', this.httpClient, SID).then(result => {
       this.GetStudents();
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
-    }, error => {
-      console.error(error);
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }

@@ -30,9 +30,10 @@ namespace Web.Controllers
                         new Claim("userName", user.UserName),
                         new Claim("password", user.Password),
                         new Claim("email", "email@email.com"),
-                        new Claim("country", "Türkiye")
+                        new Claim("country", "Türkiye"),
+                        new Claim(ClaimTypes.Role, "Admin")
                     },
-                ExpiresValue = DateTime.UtcNow.AddMinutes(5),
+                ExpiresValue = DateTime.UtcNow.AddMinutes(1),
                 Secret = secretSection
             });
             return new JsonResult(new

@@ -17,9 +17,6 @@ export class TeacherManagementComponent implements OnInit {
   selectedTeacher: TeacherMst;
   TeacherCoursesExcept: CourseMst[];
   TeacherCourses: CourseMst[];
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
 
   constructor(private service: CommonService, http: HttpClient) {
     this.httpClient = http;
@@ -42,12 +39,12 @@ export class TeacherManagementComponent implements OnInit {
 
   GetTeachers() {
     this.service.changeErrorText('');
-    this.httpClient.get<any>(this.url).subscribe(result => {
+    this.service.getByURL(this.url, this.httpClient).then(result => {
       this.teachers = result.Value;
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
-    }, error => {
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }
@@ -55,12 +52,12 @@ export class TeacherManagementComponent implements OnInit {
   DeleteTeacher(TID) {
     if (confirm('Are you sure?')) {
       this.service.changeErrorText('');
-      this.httpClient.post<any>(this.service.baseUrl + 'Teacher/DeleteTeacher', TID).subscribe(result => {
+      this.service.postByURL(this.service.baseUrl + 'Teacher/DeleteTeacher', this.httpClient, TID).then(result => {
         this.GetTeachers();
         if (result.Err != '') {
           this.service.changeErrorText(result.Err);
         }
-      }, error => {
+      }).catch(error => {
         this.service.raiseError(error);
       });
     }
@@ -68,24 +65,24 @@ export class TeacherManagementComponent implements OnInit {
 
   getTeacherCoursesExcept(TID) {
     this.service.changeErrorText('');
-    this.httpClient.get<any>(this.service.baseUrl + 'Teacher/GetCoursesExcept/?tid=' + TID, this.httpOptions).subscribe((result: any) => {
+    this.service.getByURL(this.service.baseUrl + 'Teacher/GetCoursesExcept/?tid=' + TID, this.httpClient).then((result: any) => {
       this.TeacherCoursesExcept = result.Value;
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
-    }, error => {
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }
 
   getTeacherCourses(TID) {
     this.service.changeErrorText('');
-    this.httpClient.get<any>(this.service.baseUrl + 'Teacher/GetTeacherCourses/?tid=' + TID).subscribe((result: any) => {
+    this.service.getByURL(this.service.baseUrl + 'Teacher/GetTeacherCourses/?tid=' + TID, this.httpClient).then((result: any) => {
       this.TeacherCourses = result.Value;
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
-    }, error => {
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }
@@ -101,14 +98,14 @@ export class TeacherManagementComponent implements OnInit {
     var tc = new TeacherCourse();
     tc.Cid = CID;
     tc.Tid = this.selectedTeacher.Tid;
-    this.httpClient.post<any>(this.service.baseUrl + 'Teacher/AddCourse', tc).subscribe(result => {
+    this.service.postByURL(this.service.baseUrl + 'Teacher/AddCourse', this.httpClient, tc).then(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
       else {
         this.SelectTeacher(this.selectedTeacher);
       }
-    }, error => {
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }
@@ -118,14 +115,14 @@ export class TeacherManagementComponent implements OnInit {
     var tc = new TeacherCourse();
     tc.Cid = CID;
     tc.Tid = this.selectedTeacher.Tid;
-    this.httpClient.post<any>(this.service.baseUrl + 'Teacher/DeleteCourse', tc).subscribe(result => {
+    this.service.postByURL(this.service.baseUrl + 'Teacher/DeleteCourse', this.httpClient, tc).then(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
       else {
         this.SelectTeacher(this.selectedTeacher);
       }
-    }, error => {
+    }).catch(error => {
       this.service.raiseError(error);
     });
   }

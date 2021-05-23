@@ -64,7 +64,9 @@ namespace Web
                    ValidateIssuerSigningKey = true,
                    IssuerSigningKey = new SymmetricSecurityKey(key),
                    ValidateIssuer = false,
-                   ValidateAudience = false
+                   ValidateAudience = false,
+                   RequireExpirationTime = true,
+                   LifetimeValidator = (notBefore, expires, tokenToValidate, tokenValidationParametres) => expires != null ? expires > DateTime.UtcNow : false
                };
 
                options.Events = new JwtBearerEvents
