@@ -1,10 +1,12 @@
 ﻿using DAL.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Web.Controllers
 {
+    [Authorize()]
     [ApiController]
     [Route("[controller]/{action}")]
     public class CoursesController : ControllerBase
@@ -29,6 +31,7 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult DeleteCourse([FromBody] int CID)
         {
@@ -41,11 +44,12 @@ namespace Web.Controllers
                     {
                         db.CourseMsts.Remove(c);
                         db.SaveChanges();
-                        return Ok();
+                        var ret = new ObjectResult(new { Value = 0, Err = "" });
+                        return ret;
                     }
                     else
                     {
-                        var ret = new ObjectResult(new { Value = 0, Err = "Course couldt found!" });
+                        var ret = new ObjectResult(new { Value = 0, Err = "Course couldnt found!" });
                         return ret;
                     }
                 }
@@ -65,6 +69,7 @@ namespace Web.Controllers
             }
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult SaveCourse([FromBody] CourseMst c)
         {

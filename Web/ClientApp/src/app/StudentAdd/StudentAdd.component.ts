@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonService } from '../common.service';
 import { NgForm } from '@angular/forms'
-import { CourseMst } from 'src/app/pocos/CourseMst';
+import { StudentMst } from 'src/app/pocos/StudentMst';
 import { HttpClient } from '@angular/common/http';
 import { Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'app-CourseAdd',
-  templateUrl: './CourseAdd.component.html',
+  selector: 'app-StudentAdd',
+  templateUrl: './StudentAdd.component.html',
 })
-export class CourseAddComponent implements OnInit {
+export class StudentAddComponent implements OnInit {
   errMSG: string;
   closeResult = '';
-  newCourse = new CourseMst();
+  newStudent = new StudentMst();
   private httpClient: HttpClient;
   private url: string = '';
-  private baseUrl: string = '';
   @Output() saved = new EventEmitter();
 
   constructor(private service: CommonService, http: HttpClient) {
     this.httpClient = http;
-    this.url = service.baseUrl + 'Courses/SaveCourse';
+    this.url = service.baseUrl + 'student/SaveCourse';
   }
 
   ngOnInit() {
@@ -28,16 +27,16 @@ export class CourseAddComponent implements OnInit {
     this.service.changeErrorText('');
   }
 
-  AddCourse(courseForm: NgForm) {
+  AddStudent(studentForm: NgForm) {
     this.service.changeErrorText('');
-    this.service.postByURL(this.baseUrl + 'courses/SaveCourse', this.httpClient, courseForm.value).then(result => {
+    this.service.postByURL(this.service.baseUrl + 'student/SaveStudent', this.httpClient, studentForm.value).then(result => {
       if (result.Err != '') {
         this.service.changeErrorText(result.Err);
       }
       else {
         this.saved.emit();
         document.getElementById('dvForm').hidden = !document.getElementById('dvForm').hidden;
-        courseForm.reset();
+        studentForm.reset();
       }
     }).catch(error => {
       this.service.raiseError(error);

@@ -1,0 +1,48 @@
+<div>
+  <button onclick="document.getElementById('dvForm').hidden = !document.getElementById('dvForm').hidden;">Save New</button>
+  <br />
+  <br />
+  <div id="dvForm" class="panel" hidden="hidden">
+    <form #instituteForm="ngForm" (ngSubmit)="AddTeacher(instituteForm)">
+      <div class="form-group">
+        <table>
+          <tr>
+            <td><label> Teacher Name </label></td>
+            <td>
+              <input type="text" ng-maxlength="20" hint="Teacher Name" name="TName" id="TName" class="form-control"
+                     [(ngModel)]="newTeacher.Tname" required #TName="ngModel" maxlength="20" />
+            </td>
+            <td>
+              <div *ngIf="TName.invalid"
+                   class="badge alert-danger">
+                <div *ngIf="TName.errors.required">
+                  Name is required.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><label> Education </label></td>
+            <td>
+              <input type="text" ng-maxlength="20" hint="Teacher Education" name="Education" id="Education" class="form-control"
+                     [(ngModel)]="newTeacher.Education" required #Education="ngModel" maxlength="20" />
+            </td>
+            <td>
+              <div *ngIf="Education.invalid"
+                   class="badge alert-danger">
+                <div *ngIf="Education.errors.required">
+                  Education is required.
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td><button id="btnSave" class="btn btn-primary" [disabled]="TName.invalid || Education.invalid">Save</button></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </form>
+  </div>
+</div>

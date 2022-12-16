@@ -17,7 +17,9 @@ namespace DAL.Models
         {
         }
 
-        public virtual DbSet<Admin> Admins { get; set; }
+        public virtual DbSet<AuthRole> AuthRoles { get; set; }
+        public virtual DbSet<AuthUser> AuthUsers { get; set; }
+        public virtual DbSet<AuthUsersRole> AuthUsersRoles { get; set; }
         public virtual DbSet<CourseMst> CourseMsts { get; set; }
         public virtual DbSet<StudentCourse> StudentCourses { get; set; }
         public virtual DbSet<StudentMst> StudentMsts { get; set; }
@@ -37,25 +39,35 @@ namespace DAL.Models
         {
             modelBuilder.HasAnnotation("Relational:Collation", "Turkish_CI_AS");
 
-            modelBuilder.Entity<Admin>(entity =>
+            modelBuilder.Entity<AuthRole>(entity =>
             {
-                entity.HasKey(e => e.Aid);
+                entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.ToTable("ADMIN");
-
-                entity.Property(e => e.Aid).HasColumnName("AID");
-
-                entity.Property(e => e.LoginName)
+                entity.Property(e => e.RolName)
                     .IsRequired()
-                    .HasMaxLength(20);
+                    .HasMaxLength(50);
+            });
 
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(20);
+            modelBuilder.Entity<AuthUser>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(10);
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.UserName)
+                    .IsRequired()
+                    .HasMaxLength(50);
+            });
+
+            modelBuilder.Entity<AuthUsersRole>(entity =>
+            {
+                entity.Property(e => e.Id).HasColumnName("ID");
+
+                entity.Property(e => e.UserId).HasColumnName("UserID");
+
+                entity.Property(e => e.UserRolId).HasColumnName("UserRolID");
             });
 
             modelBuilder.Entity<CourseMst>(entity =>
@@ -70,17 +82,11 @@ namespace DAL.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("CName");
-
-                entity.Property(e => e.Fees)
-                    .IsRequired()
-                    .HasMaxLength(50);
             });
 
             modelBuilder.Entity<StudentCourse>(entity =>
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
-
-                entity.Property(e => e.Cid).HasColumnName("CID");
 
                 entity.Property(e => e.Fees).HasColumnName("FEES");
 
@@ -88,17 +94,19 @@ namespace DAL.Models
 
                 entity.Property(e => e.Sid).HasColumnName("SID");
 
-                entity.HasOne(d => d.CidNavigation)
-                    .WithMany(p => p.StudentCourses)
-                    .HasForeignKey(d => d.Cid)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_StudentCourses_CourseMst");
+                entity.Property(e => e.Tcid).HasColumnName("TCID");
 
                 entity.HasOne(d => d.SidNavigation)
                     .WithMany(p => p.StudentCourses)
                     .HasForeignKey(d => d.Sid)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_StudentCourses_StudentMst");
+
+                entity.HasOne(d => d.Tc)
+                    .WithMany(p => p.StudentCourses)
+                    .HasForeignKey(d => d.Tcid)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_StudentCourses_TeacherCourses");
             });
 
             modelBuilder.Entity<StudentMst>(entity =>
@@ -158,10 +166,6 @@ namespace DAL.Models
                 entity.ToTable("TeacherMst");
 
                 entity.Property(e => e.Tid).HasColumnName("TID");
-
-                entity.Property(e => e.Course)
-                    .IsRequired()
-                    .HasMaxLength(50);
 
                 entity.Property(e => e.Education)
                     .IsRequired()
