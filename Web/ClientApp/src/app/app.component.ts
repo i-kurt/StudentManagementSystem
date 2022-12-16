@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   errMSG: string;
   private httpClient: HttpClient;
 
-  constructor(private service: CommonService, @Inject('BASE_URL') baseUrl: string, http: HttpClient) {
+  constructor(public service: CommonService, @Inject('BASE_URL') baseUrl: string, http: HttpClient) {
     service.baseUrl = baseUrl;
     this.httpClient = http;
   }
